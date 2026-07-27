@@ -1,0 +1,77 @@
+/*
+ * Design tokens — palette and type sampled from the Behance reference:
+ * soft candy pink + white, geometric condensed display type, airy layout.
+ */
+
+:root {
+  /* ---------- Colour ---------- */
+  --pink-700: #c84265;
+  --pink-600: #e0607f;
+  --pink-500: #f2879f; /* primary CTA */
+  --pink-400: #f7a3b7;
+  --pink-300: #f9b8c6; /* pink bands + blobs */
+  --pink-200: #fcd4de;
+  --pink-100: #fde9ee;
+  --pink-050: #fff5f7;
+
+  --ink: #1a1216;
+  --ink-70: rgba(26, 18, 22, 0.7);
+  --ink-45: rgba(26, 18, 22, 0.45);
+  --ink-15: rgba(26, 18, 22, 0.12);
+
+  --white: #ffffff;
+  --cream: #fffbfc;
+
+  /* ---------- Type ---------- */
+  --font-display: "Jost", "Futura", "Century Gothic", sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: "Cormorant Garamond", Georgia, serif;
+
+  /* Fluid scale — 360px → 1440px viewport */
+  --text-xs: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+  --text-sm: clamp(0.84rem, 0.81rem + 0.15vw, 0.94rem);
+  --text-base: clamp(0.98rem, 0.94rem + 0.2vw, 1.09rem);
+  --text-lg: clamp(1.1rem, 1.02rem + 0.35vw, 1.32rem);
+  --text-xl: clamp(1.3rem, 1.12rem + 0.75vw, 1.75rem);
+
+  --display-sm: clamp(1.9rem, 1.45rem + 2vw, 3rem);
+  --display-md: clamp(2.4rem, 1.6rem + 3.5vw, 4.4rem);
+  --display-lg: clamp(3rem, 1.5rem + 6.5vw, 7.5rem);
+
+  /* ---------- Space ---------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --section-y: clamp(4rem, 2rem + 8vw, 8.5rem);
+  --gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
+  --max-width: 1240px;
+
+  /* ---------- Shape ---------- */
+  --radius-sm: 10px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-pill: 999px;
+
+  /* Organic blob shapes — the signature move of the reference */
+  --blob-a: 58% 42% 38% 62% / 45% 38% 62% 55%;
+  --blob-b: 42% 58% 62% 38% / 58% 52% 48% 42%;
+  --blob-c: 50% 50% 46% 54% / 38% 62% 38% 62%;
+
+  /* ---------- Depth ---------- */
+  --shadow-sm: 0 2px 10px rgba(26, 18, 22, 0.05);
+  --shadow-md: 0 14px 40px -18px rgba(200, 66, 101, 0.3);
+  --shadow-lg: 0 30px 70px -30px rgba(200, 66, 101, 0.4);
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.22s;
+  --dur-mid: 0.45s;
+  --dur-slow: 0.75s;
+}

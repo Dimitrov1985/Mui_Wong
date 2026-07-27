@@ -1,0 +1,244 @@
+/* The reference puts this section on white, centred, with the carousel
+   carrying the whole composition. */
+.benefits {
+  background: var(--white);
+}
+
+.benefits__head {
+  max-width: 46rem;
+  margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+}
+
+.benefits__eyebrow {
+  justify-content: center;
+}
+
+.benefits__title {
+  margin-top: var(--space-3);
+  /* The heading is authored with a newline to force two centred lines. */
+  white-space: pre-line;
+}
+
+/* ---------------- Carousel ---------------- */
+
+.bcar {
+  outline-offset: 12px;
+}
+
+.bcar__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 2rem);
+  touch-action: pan-y;
+  user-select: none;
+}
+
+/* ---------- Slide art ---------- */
+
+.bslide {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.bslide__blob {
+  position: absolute;
+  inset: 8%;
+  background: var(--pink-300);
+  border-radius: var(--blob-a);
+  animation: blob-morph 18s ease-in-out infinite;
+}
+
+.bslide__photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Stand-in until cut-out exercise photography exists. */
+.bslide__placeholder {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.bslide__no {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--white);
+  opacity: 0.9;
+}
+
+/* ---------- Centre vs sides ---------- */
+
+.bcar__center {
+  flex: 0 0 auto;
+  width: clamp(220px, 30vw, 400px);
+  animation: slide-in 0.5s var(--ease-out) both;
+}
+
+.bcar__side {
+  flex: 0 0 auto;
+  width: clamp(110px, 15vw, 220px);
+  opacity: 0.4;
+  filter: saturate(0.4);
+  transition:
+    opacity var(--dur-mid) var(--ease-out),
+    filter var(--dur-mid) var(--ease-out);
+}
+
+/* Side slides are decoration — no blob, just the faded figure. */
+.bcar__side .bslide__blob {
+  background: var(--pink-100);
+}
+
+.bcar__side .bslide__no {
+  color: var(--pink-300);
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Arrows ---------- */
+
+.bcar__arrow {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 4vw, 48px);
+  height: clamp(38px, 4vw, 48px);
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--ink-45);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.bcar__arrow svg {
+  width: 60%;
+  height: 60%;
+}
+
+.bcar__arrow:hover {
+  color: var(--pink-700);
+  background: var(--pink-050);
+  border-color: var(--pink-300);
+}
+
+/* ---------- Caption ---------- */
+
+.bcar__caption {
+  max-width: 34rem;
+  margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  text-align: center;
+}
+
+.bcar__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.2;
+  animation: caption-in 0.45s var(--ease-out) both;
+}
+
+.bcar__text {
+  margin-top: var(--space-3);
+  font-size: var(--text-base);
+  color: var(--ink-70);
+  text-wrap: pretty;
+  animation: caption-in 0.45s var(--ease-out) 0.05s both;
+}
+
+@keyframes caption-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Dots ---------- */
+
+.bcar__dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.bcar__dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  background: var(--pink-200);
+  border: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    width var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.bcar__dot:hover {
+  background: var(--pink-400);
+}
+
+.bcar__dot.is-active {
+  width: 26px;
+  background: var(--pink-500);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  /* Side previews cost too much width on phones. */
+  .bcar__side {
+    display: none;
+  }
+
+  .bcar__center {
+    width: min(72vw, 300px);
+  }
+
+  .bcar__stage {
+    gap: var(--space-2);
+  }
+
+  .bcar__arrow {
+    border-color: var(--pink-300);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bcar__center,
+  .bcar__title,
+  .bcar__text,
+  .bslide__blob {
+    animation: none;
+  }
+}

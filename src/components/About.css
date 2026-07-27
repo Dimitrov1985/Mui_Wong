@@ -1,0 +1,136 @@
+.about {
+  background: var(--white);
+}
+
+.about__inner {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 6rem);
+}
+
+/* ---------- Media ---------- */
+
+.about__media {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 3 / 4;
+}
+
+/* Mui stands in the lower two thirds of Mui_2.jpg — bias the crop downward. */
+.about__media .photo {
+  object-position: 50% 88%;
+}
+
+.about__media-blob {
+  position: absolute;
+  inset: -7% 7% 7% -7%;
+  z-index: 0;
+  background: var(--pink-200);
+  border-radius: var(--blob-c);
+  animation: blob-morph 20s ease-in-out infinite;
+}
+
+.about__badge {
+  position: absolute;
+  right: -4%;
+  top: 8%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: clamp(96px, 11vw, 132px);
+  aspect-ratio: 1;
+  text-align: center;
+  background: var(--pink-500);
+  color: var(--white);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-md);
+}
+
+.about__badge-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.about__badge-label {
+  margin-top: 0.2em;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+/* ---------- Copy ---------- */
+
+.about__title {
+  margin-top: var(--space-3);
+}
+
+.about__quote {
+  margin: var(--space-5) 0 0;
+  padding-left: var(--space-5);
+  border-left: 3px solid var(--pink-300);
+  font-size: clamp(1.25rem, 0.95rem + 1.3vw, 2rem);
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.about__body {
+  margin-top: var(--space-5);
+}
+
+.about__list {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.about__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-base);
+  font-weight: 500;
+}
+
+.about__tick {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin-top: 0.1em;
+  padding: 3px;
+  color: var(--white);
+  background: var(--pink-500);
+  border-radius: var(--radius-pill);
+}
+
+.about__cta {
+  margin-top: var(--space-6);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .about__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 8vw, 4rem);
+  }
+
+  .about__media-col {
+    max-width: 400px;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .about__cta {
+    width: 100%;
+  }
+}

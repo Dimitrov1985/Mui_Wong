@@ -1,0 +1,115 @@
+.footer {
+  background: var(--white);
+  color: var(--ink);
+}
+
+/* ---------- Top row: location · phone · social ---------- */
+
+.footer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-block: clamp(1.75rem, 3vw, 2.75rem);
+  border-bottom: 1px solid var(--ink-15);
+}
+
+.footer__location {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-70);
+  letter-spacing: 0.02em;
+}
+
+/* The reference's oversized centrepiece — the number you actually remember.
+   min-width: 0 keeps the nowrap number from forcing this flex item (and the
+   whole row) wider than its share on in-between viewport widths. */
+.footer__phone {
+  flex: 2 1 0;
+  min-width: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1rem + 1.8vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--pink-700);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.footer__phone:hover {
+  color: var(--pink-600);
+}
+
+.footer__social {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+}
+
+.footer__social a {
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.footer__social svg {
+  width: 21px;
+  height: 21px;
+}
+
+.footer__social a:hover {
+  color: var(--pink-600);
+}
+
+/* ---------- Nav row ---------- */
+
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.footer__nav a {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-70);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.footer__nav a:hover {
+  color: var(--pink-700);
+}
+
+/* ---------- Base row ---------- */
+
+.footer__base {
+  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--ink-45);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+  .footer__top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer__location,
+  .footer__phone,
+  .footer__social {
+    flex: none;
+  }
+
+  .footer__social {
+    justify-content: center;
+  }
+}

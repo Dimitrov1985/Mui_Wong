@@ -1,0 +1,234 @@
+.contact {
+  position: relative;
+  background: var(--pink-300);
+}
+
+.contact__blob {
+  width: clamp(280px, 32vw, 500px);
+  aspect-ratio: 1;
+  right: -12%;
+  bottom: -18%;
+  background: var(--pink-200);
+  opacity: 0.55;
+}
+
+.contact__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: clamp(2.5rem, 5vw, 5rem);
+}
+
+/* ---------- Left column ---------- */
+
+.contact__eyebrow {
+  color: var(--ink);
+}
+
+.contact__eyebrow::before {
+  background: var(--ink);
+}
+
+.contact__lede {
+  margin-top: var(--space-4);
+  color: var(--ink-70);
+}
+
+.contact__channels {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.contact__channels li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(26, 18, 22, 0.16);
+}
+
+.contact__channel-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink-700);
+}
+
+.contact__channels a,
+.contact__channels li > span:last-child {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.contact__channels a {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.contact__channels a:hover {
+  color: var(--pink-700);
+}
+
+.contact__qr {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-6) 0 0;
+  padding: var(--space-4);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  width: fit-content;
+}
+
+.contact__qr img {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.contact__qr figcaption {
+  max-width: 12ch;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-70);
+}
+
+/* ---------- Form ---------- */
+
+.contact__form {
+  display: grid;
+  gap: var(--space-5);
+  padding: clamp(1.75rem, 3vw, 3rem);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.field > label,
+.field legend {
+  padding: 0;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-70);
+}
+
+.field input[type="text"],
+.field input[type="tel"] {
+  width: 100%;
+  padding: 0.95em 1.15em;
+  background: var(--pink-050);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.field input::placeholder {
+  color: var(--ink-45);
+}
+
+.field input:hover {
+  background: var(--pink-100);
+}
+
+.field input:focus {
+  outline: none;
+  background: var(--white);
+  border-color: var(--pink-500);
+}
+
+.field--goals legend {
+  margin-bottom: var(--space-2);
+}
+
+/* ---------- Goal chips ---------- */
+
+.goals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.goal {
+  position: relative;
+  padding: 0.7em 1.3em;
+  background: var(--pink-050);
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.goal:hover {
+  border-color: var(--pink-300);
+}
+
+/* Visually hidden, still reachable by keyboard and screen readers. */
+.goal input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.goal:has(input:focus-visible) {
+  outline: 3px solid var(--pink-600);
+  outline-offset: 3px;
+}
+
+.goal.is-selected {
+  background: var(--pink-500);
+  border-color: var(--pink-500);
+  color: var(--white);
+}
+
+.contact__submit {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.contact__note {
+  font-size: var(--text-xs);
+  text-align: center;
+  color: var(--ink-45);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .contact__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__qr {
+    width: 100%;
+  }
+}
