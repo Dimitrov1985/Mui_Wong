@@ -1,31 +1,6 @@
 import { site, whatsAppLink } from "../content/site";
 import "./Footer.css";
 
-// Simple outline glyphs, in the same stroke style as Chevron — not a
-// reproduction of any brand's logo, just a generic "chat" mark per channel.
-
-function WhatsAppIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path
-        d="M7 20l1.1-3.4A7.5 7.5 0 1112 19a7.4 7.4 0 01-3.6-.9z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9.3 10.2c.3 1.7 1.7 3.1 3.4 3.4"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 function InstagramIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -52,20 +27,6 @@ function InstagramIcon() {
   );
 }
 
-function LineIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path
-        d="M4 11.2C4 7.2 7.8 4 12.5 4S21 7.2 21 11.2c0 3.6-3 6.6-7.2 7.9-.3.1-.7-.1-.6-.5l.4-1.9c-4.5.1-9.1-2.6-9.1-7.5z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export default function Footer() {
   const f = site.footer;
 
@@ -85,7 +46,7 @@ export default function Footer() {
             rel="noreferrer"
             aria-label="Chat on WhatsApp"
           >
-            <WhatsAppIcon />
+            <img src="/whatsapp.png" alt="" />
           </a>
           <a
             href={site.contacts.instagramUrl}
@@ -101,7 +62,7 @@ export default function Footer() {
             rel="noreferrer"
             aria-label="Chat on Line"
           >
-            <LineIcon />
+            <img src="/line.png" alt="" />
           </a>
         </div>
       </div>

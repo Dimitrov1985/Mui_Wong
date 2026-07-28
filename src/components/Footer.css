@@ -52,17 +52,32 @@
 }
 
 .footer__social a {
+  display: flex;
   color: var(--ink);
-  transition: color var(--dur-fast) var(--ease-out);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
-.footer__social svg {
-  width: 21px;
-  height: 21px;
+.footer__social svg,
+.footer__social img {
+  /* Line's wordmark needs a bit more room than a plain glyph to stay legible. */
+  width: 27px;
+  height: 27px;
 }
 
+/* Instagram is a currentColor outline, so hover can recolour it directly. */
 .footer__social a:hover {
   color: var(--pink-600);
+}
+
+/* The WhatsApp/Line marks are fixed-colour raster icons — recolour isn't an
+   option, so hover reads instead as a lift + fade, matching the hover
+   language used elsewhere on the site (pricing cards, carousel thumbs). */
+.footer__social a:has(img):hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
 }
 
 /* ---------- Nav row ---------- */
