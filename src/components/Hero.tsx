@@ -1,4 +1,4 @@
-import { site, whatsAppLink } from "../content/site";
+import { site } from "../content/site";
 import CountUp from "./CountUp";
 import "./Hero.css";
 
@@ -24,12 +24,7 @@ export default function Hero() {
           <p className="lede hero__lede">{h.lede}</p>
 
           <div className="hero__actions">
-            <a
-              href={whatsAppLink()}
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn--solid"
-            >
+            <a href="#contact" className="btn btn--solid">
               {h.primaryCta}
             </a>
             <a href="#pricing" className="btn btn--outline">
