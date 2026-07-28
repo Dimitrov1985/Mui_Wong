@@ -1,8 +1,26 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { site, whatsAppLink } from "../content/site";
+import { FORM_ENDPOINT, site, whatsAppLink } from "../content/site";
 import Reveal from "./Reveal";
 import "./Contact.css";
+
+/**
+ * Fire-and-forget log to the Google Sheet + Gmail notification. WhatsApp
+ * stays the primary, guaranteed path — if this fails or isn't configured
+ * yet, the client's booking still goes through.
+ */
+function logSubmission(name: string, phone: string, goal: string) {
+  if (!FORM_ENDPOINT) return;
+
+  fetch(FORM_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({ name, phone, goal }),
+  }).catch(() => {
+    // Best-effort only — nothing to show the client, WhatsApp already has the message.
+  });
+}
 
 export default function Contact() {
   const c = site.contact;
@@ -13,7 +31,12 @@ export default function Contact() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const url = whatsAppLink(c.message(name.trim(), phone.trim(), goal));
+    const trimmedName = name.trim();
+    const trimmedPhone = phone.trim();
+
+    logSubmission(trimmedName, trimmedPhone, goal);
+
+    const url = whatsAppLink(c.message(trimmedName, trimmedPhone, goal));
     window.open(url, "_blank", "noopener,noreferrer");
   }
 

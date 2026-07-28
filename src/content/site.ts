@@ -8,6 +8,14 @@
 
 const WHATSAPP_NUMBER = "66945953441";
 
+/**
+ * Google Apps Script Web App URL that logs each form submission to a Google
+ * Sheet and emails a notification — see the setup guide for how to get this.
+ * Left blank until it's deployed; the WhatsApp button keeps working either way.
+ */
+export const FORM_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbwQwqZdE_CfdYzSRxxs35jEuD5HV0P62z63JS7RezC_fwatqZsjFEFSJUv7_by6nzCYEA/exec";
+
 /** One slide of the "benefits of personal training" carousel. */
 export type BenefitSlide = {
   no: string;
