@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { logSubmission, site, whatsAppLink } from "../content/site";
+import {
+  PRESELECT_GOAL_EVENT,
+  logSubmission,
+  site,
+  whatsAppLink,
+} from "../content/site";
 import Reveal from "./Reveal";
 import "./Contact.css";
 
@@ -13,6 +18,22 @@ export default function Contact() {
   const [phone, setPhone] = useState("");
   const [goal, setGoal] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+
+  // A "Book this plan" click on the pricing cards lands here with its goal
+  // pre-selected — bring the form back if a previous submission's success
+  // screen is still showing, so there's something to fill in.
+  useEffect(() => {
+    function onPreselect(event: Event) {
+      const preselected = (event as CustomEvent<string>).detail;
+      if (preselected) {
+        setGoal(preselected);
+        setStatus("idle");
+      }
+    }
+
+    window.addEventListener(PRESELECT_GOAL_EVENT, onPreselect);
+    return () => window.removeEventListener(PRESELECT_GOAL_EVENT, onPreselect);
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
