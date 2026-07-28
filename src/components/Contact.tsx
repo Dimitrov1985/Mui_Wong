@@ -4,22 +4,23 @@ import { FORM_ENDPOINT, site, whatsAppLink } from "../content/site";
 import Reveal from "./Reveal";
 import "./Contact.css";
 
-/**
- * Fire-and-forget log to the Google Sheet + Gmail notification. WhatsApp
- * stays the primary, guaranteed path — if this fails or isn't configured
- * yet, the client's booking still goes through.
- */
-function logSubmission(name: string, phone: string, goal: string) {
-  if (!FORM_ENDPOINT) return;
+type Status = "idle" | "submitting" | "success" | "error";
 
-  fetch(FORM_ENDPOINT, {
+/** Logs a submission to the Google Sheet / Gmail backend. Throws on failure. */
+function logSubmission(name: string, phone: string, goal: string): Promise<void> {
+  if (!FORM_ENDPOINT) {
+    return Promise.reject(new Error("Form endpoint is not configured yet"));
+  }
+
+  // mode: "no-cors" means we can't read the response — Apps Script doesn't
+  // send CORS headers a browser will accept. We treat "the request didn't
+  // throw" as success, which is the best signal available in this mode.
+  return fetch(FORM_ENDPOINT, {
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
     body: JSON.stringify({ name, phone, goal }),
-  }).catch(() => {
-    // Best-effort only — nothing to show the client, WhatsApp already has the message.
-  });
+  }).then(() => undefined);
 }
 
 export default function Contact() {
@@ -28,16 +29,25 @@ export default function Contact() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [goal, setGoal] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const trimmedName = name.trim();
-    const trimmedPhone = phone.trim();
+    setStatus("submitting");
 
-    logSubmission(trimmedName, trimmedPhone, goal);
+    try {
+      await logSubmission(name.trim(), phone.trim(), goal);
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  }
 
-    const url = whatsAppLink(c.message(trimmedName, trimmedPhone, goal));
-    window.open(url, "_blank", "noopener,noreferrer");
+  function reset() {
+    setName("");
+    setPhone("");
+    setGoal("");
+    setStatus("idle");
   }
 
   return (
@@ -88,62 +98,116 @@ export default function Contact() {
         </Reveal>
 
         <Reveal className="contact__form-col" delay={100}>
-          <form className="contact__form" onSubmit={handleSubmit}>
-            <div className="field">
-              <label htmlFor="contact-name">{c.nameLabel}</label>
-              <input
-                id="contact-name"
-                name="name"
-                type="text"
-                required
-                autoComplete="name"
-                placeholder={c.namePlaceholder}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+          {status === "success" ? (
+            <div className="contact__form contact__success">
+              <svg
+                className="contact__success-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                />
+                <path
+                  d="M7.5 12.5l3 3 6-6.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <h3 className="contact__success-title">{c.successTitle}</h3>
+              <p className="contact__success-text">{c.successText}</p>
+              <button
+                type="button"
+                className="btn btn--outline"
+                onClick={reset}
+              >
+                {c.sendAnother}
+              </button>
             </div>
-
-            <div className="field">
-              <label htmlFor="contact-phone">{c.phoneLabel}</label>
-              <input
-                id="contact-phone"
-                name="phone"
-                type="tel"
-                required
-                autoComplete="tel"
-                placeholder={c.phonePlaceholder}
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-
-            <fieldset className="field field--goals">
-              <legend>{c.goalLabel}</legend>
-              <div className="goals">
-                {c.goals.map((option) => (
-                  <label
-                    key={option}
-                    className={`goal${goal === option ? " is-selected" : ""}`}
-                  >
-                    <input
-                      type="radio"
-                      name="goal"
-                      value={option}
-                      checked={goal === option}
-                      onChange={() => setGoal(option)}
-                    />
-                    {option}
-                  </label>
-                ))}
+          ) : (
+            <form className="contact__form" onSubmit={handleSubmit}>
+              <div className="field">
+                <label htmlFor="contact-name">{c.nameLabel}</label>
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder={c.namePlaceholder}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </div>
-            </fieldset>
 
-            <button type="submit" className="btn btn--ink contact__submit">
-              {c.submit}
-            </button>
+              <div className="field">
+                <label htmlFor="contact-phone">{c.phoneLabel}</label>
+                <input
+                  id="contact-phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  autoComplete="tel"
+                  placeholder={c.phonePlaceholder}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
 
-            <p className="contact__note">{c.note}</p>
-          </form>
+              <fieldset className="field field--goals">
+                <legend>{c.goalLabel}</legend>
+                <div className="goals">
+                  {c.goals.map((option) => (
+                    <label
+                      key={option}
+                      className={`goal${goal === option ? " is-selected" : ""}`}
+                    >
+                      <input
+                        type="radio"
+                        name="goal"
+                        value={option}
+                        checked={goal === option}
+                        onChange={() => setGoal(option)}
+                      />
+                      {option}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              {status === "error" && (
+                <p className="contact__error">
+                  {c.errorText}{" "}
+                  <a
+                    href={whatsAppLink(c.message(name.trim(), phone.trim(), goal))}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {c.errorCta}
+                  </a>
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn--ink contact__submit"
+                disabled={status === "submitting"}
+              >
+                {status === "submitting" ? c.submitting : c.submit}
+              </button>
+
+              <p className="contact__note">{c.note}</p>
+            </form>
+          )}
         </Reveal>
       </div>
     </section>
