@@ -1,4 +1,4 @@
-import { site, whatsAppLink } from "../content/site";
+import { logSubmission, site, whatsAppLink } from "../content/site";
 import CountUp from "./CountUp";
 import Reveal from "./Reveal";
 import "./Pricing.css";
@@ -74,6 +74,14 @@ export default function Pricing() {
                   className={`btn plan__cta ${
                     plan.popular ? "btn--ink" : "btn--outline"
                   }`}
+                  onClick={() => {
+                    // Fire-and-forget: doesn't block the WhatsApp navigation.
+                    logSubmission(
+                      "(from pricing card)",
+                      "(not given)",
+                      `${plan.name} — ${plan.price}${plan.period}`,
+                    ).catch(() => {});
+                  }}
                 >
                   {p.cta}
                 </a>

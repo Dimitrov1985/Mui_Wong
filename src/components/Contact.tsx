@@ -1,27 +1,10 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { FORM_ENDPOINT, site, whatsAppLink } from "../content/site";
+import { logSubmission, site, whatsAppLink } from "../content/site";
 import Reveal from "./Reveal";
 import "./Contact.css";
 
 type Status = "idle" | "submitting" | "success" | "error";
-
-/** Logs a submission to the Google Sheet / Gmail backend. Throws on failure. */
-function logSubmission(name: string, phone: string, goal: string): Promise<void> {
-  if (!FORM_ENDPOINT) {
-    return Promise.reject(new Error("Form endpoint is not configured yet"));
-  }
-
-  // mode: "no-cors" means we can't read the response — Apps Script doesn't
-  // send CORS headers a browser will accept. We treat "the request didn't
-  // throw" as success, which is the best signal available in this mode.
-  return fetch(FORM_ENDPOINT, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ name, phone, goal }),
-  }).then(() => undefined);
-}
 
 export default function Contact() {
   const c = site.contact;

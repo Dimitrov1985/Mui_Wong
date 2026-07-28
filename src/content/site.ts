@@ -175,6 +175,28 @@ export function whatsAppLink(message?: string): string {
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
+/**
+ * Logs a lead to the Google Sheet / Gmail backend (see google-apps-script.gs).
+ * Fire-and-forget: throws only if the request itself couldn't be sent, since
+ * the no-cors response can't be read to confirm the script actually ran.
+ */
+export function logSubmission(
+  name: string,
+  phone: string,
+  goal: string,
+): Promise<void> {
+  if (!FORM_ENDPOINT) {
+    return Promise.reject(new Error("Form endpoint is not configured yet"));
+  }
+
+  return fetch(FORM_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({ name, phone, goal }),
+  }).then(() => undefined);
+}
+
 export const site = {
   trainer: {
     name: "Mui Wong",
