@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { site, whatsAppLink } from "../content/site";
+import { site } from "../content/site";
 import "./Navbar.css";
 
 function PhoneIcon() {
@@ -66,9 +66,7 @@ export default function Navbar() {
             {site.contacts.whatsappDisplay}
           </a>
           <a
-            href={whatsAppLink()}
-            target="_blank"
-            rel="noreferrer"
+            href="#contact"
             className="btn btn--solid nav__cta nav__cta--mobile"
             onClick={() => setOpen(false)}
           >
@@ -82,12 +80,7 @@ export default function Navbar() {
             <span>{site.contacts.whatsappDisplay}</span>
           </a>
 
-          <a
-            href={whatsAppLink()}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn--solid nav__cta"
-          >
+          <a href="#contact" className="btn btn--solid nav__cta">
             Book now
           </a>
         </div>
