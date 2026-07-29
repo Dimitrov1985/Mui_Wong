@@ -52,8 +52,8 @@ export const site: Site = {
     badge: { value: "ฟรี", label: "ปรึกษาครั้งแรก" },
     stats: [
       { value: "7+", label: "ปีประสบการณ์" },
-      { value: "150+", label: "ลูกค้าที่ดูแล" },
-      { value: "3000+", label: "เซสชันที่ผ่านมา" },
+      { value: "60+", label: "ลูกค้าที่ดูแล" },
+      { value: "2000+", label: "เซสชันที่ผ่านมา" },
     ],
   },
 

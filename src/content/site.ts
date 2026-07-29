@@ -260,8 +260,8 @@ export const site = {
     badge: { value: "Free", label: "first consultation" },
     stats: [
       { value: "7+", label: "years experience" },
-      { value: "150+", label: "clients coached" },
-      { value: "3000+", label: "sessions delivered" },
+      { value: "60+", label: "clients coached" },
+      { value: "2000+", label: "sessions delivered" },
     ],
   },
 
