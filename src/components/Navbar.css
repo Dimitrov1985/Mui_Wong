@@ -251,6 +251,12 @@
     margin-top: var(--space-4);
   }
 
+  /* The mobile menu's own background is pink-100 too, so the toggle's
+     unchecked track needs a border to stay visible against it. */
+  .nav__lang--mobile .lang-toggle__track {
+    border: 1.5px solid var(--pink-300);
+  }
+
   .nav__burger {
     display: flex;
   }

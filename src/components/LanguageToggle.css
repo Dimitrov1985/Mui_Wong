@@ -1,54 +1,93 @@
+/* Sliding pill switch — same mechanic as a classic iOS-style toggle
+   (hidden checkbox + sibling track, knob slides on :checked), restyled to
+   the site's own palette and softened shadows instead of a metallic finish. */
+
 .lang-toggle {
   display: inline-flex;
   flex-shrink: 0;
-  padding: 3px;
-  gap: 2px;
+  cursor: pointer;
+}
+
+.lang-toggle__input {
+  /* Visually hidden but still focusable/operable via keyboard. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.lang-toggle__track {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 28px;
   background: var(--pink-100);
   border-radius: var(--radius-pill);
+  transition: background-color var(--dur-mid) var(--ease-out);
 }
 
-.lang-toggle__option {
-  position: relative;
-  padding: 0.4em 0.75em;
-  border: 0;
-  background: transparent;
-  border-radius: var(--radius-pill);
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--ink-70);
-  cursor: pointer;
-  transition: color var(--dur-fast) var(--ease-out);
-}
-
-.lang-toggle__option::before {
-  content: "";
+.lang-toggle__label {
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--pink-500);
-  border-radius: var(--radius-pill);
-  opacity: 0;
-  transform: scale(0.85);
-  transition:
-    opacity var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ink-45);
+  transition: color var(--dur-mid) var(--ease-out);
 }
 
-.lang-toggle__option:hover {
+.lang-toggle__label--en {
+  left: 7px;
+}
+
+.lang-toggle__label--th {
+  right: 7px;
+}
+
+/* The side currently "off" is dimmed further; the active side (revealed
+   once the knob slides away from it) is coloured in. */
+.lang-toggle__input:not(:checked) ~ .lang-toggle__track .lang-toggle__label--en {
   color: var(--pink-700);
 }
 
-.lang-toggle__option.is-active {
+.lang-toggle__input:checked ~ .lang-toggle__track .lang-toggle__label--th {
   color: var(--white);
 }
 
-.lang-toggle__option.is-active:hover {
-  color: var(--white);
+.lang-toggle__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur-mid) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
-.lang-toggle__option.is-active::before {
-  opacity: 1;
-  transform: none;
+.lang-toggle__input:checked ~ .lang-toggle__track {
+  background: var(--pink-500);
+}
+
+.lang-toggle__input:checked ~ .lang-toggle__track .lang-toggle__knob {
+  transform: translateX(32px);
+}
+
+.lang-toggle:hover .lang-toggle__knob {
+  box-shadow: var(--shadow-md);
+}
+
+.lang-toggle__input:focus-visible ~ .lang-toggle__track {
+  outline: 3px solid var(--pink-600);
+  outline-offset: 3px;
 }
