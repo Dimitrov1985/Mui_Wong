@@ -18,6 +18,9 @@ export default function Contact() {
   const [phone, setPhone] = useState("");
   const [goal, setGoal] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  // Honeypot: invisible to real visitors, but generic form-filling bots
+  // often fill every field they can find. Never read or shown to anyone.
+  const [website, setWebsite] = useState("");
 
   // A "Book this plan" click on the pricing cards lands here with its goal
   // pre-selected — bring the form back if a previous submission's success
@@ -37,10 +40,19 @@ export default function Contact() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    // A filled honeypot means a bot filled out the form, not a person.
+    // Show the normal success screen (so its script doesn't learn anything
+    // useful and retry) without logging anything or spending a request.
+    if (website.trim() !== "") {
+      setStatus("success");
+      return;
+    }
+
     setStatus("submitting");
 
     try {
-      await logSubmission(name.trim(), phone.trim(), goal);
+      await logSubmission(name.trim(), phone.trim(), goal, website);
       setStatus("success");
     } catch {
       setStatus("error");
@@ -51,6 +63,7 @@ export default function Contact() {
     setName("");
     setPhone("");
     setGoal("");
+    setWebsite("");
     setStatus("idle");
   }
 
@@ -139,6 +152,20 @@ export default function Contact() {
             </div>
           ) : (
             <form className="contact__form" onSubmit={handleSubmit}>
+              {/* Honeypot — real visitors never see or reach this field. */}
+              <div className="contact__hp" aria-hidden="true">
+                <label htmlFor="contact-website">Website</label>
+                <input
+                  id="contact-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </div>
+
               <div className="field">
                 <label htmlFor="contact-name">{c.nameLabel}</label>
                 <input

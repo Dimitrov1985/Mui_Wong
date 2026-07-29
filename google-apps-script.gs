@@ -8,12 +8,26 @@
  * What it does on every form submission:
  *  1. Adds a row to this spreadsheet (date, name, phone, goal).
  *  2. Emails a notification to NOTIFY_EMAIL.
+ *
+ * This URL is public by design (the website needs to reach it with no
+ * login), which means anyone who finds it — not just the website — can
+ * POST to it directly. The "website" field is a honeypot: real visitors
+ * never fill it in, so a submission that has it set is silently dropped.
  */
 
 // Change this if you ever want the notification sent somewhere else.
 const NOTIFY_EMAIL = "jekadi851525@gmail.com";
 
 function doPost(e) {
+  const data = JSON.parse(e.postData.contents);
+
+  // Bot caught by the honeypot — pretend success, log nothing, send nothing.
+  if (data.website) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: "success" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
   // First submission ever: add column headers.
@@ -26,7 +40,6 @@ function doPost(e) {
   // keeps it showing exactly what was typed, every time.
   sheet.getRange("C:C").setNumberFormat("@");
 
-  const data = JSON.parse(e.postData.contents);
   const name = data.name || "(not given)";
   const phone = data.phone || "(not given)";
   const goal = data.goal || "(not given)";

@@ -187,11 +187,16 @@ export const PRESELECT_GOAL_EVENT = "mw:preselect-goal";
  * Logs a lead to the Google Sheet / Gmail backend (see google-apps-script.gs).
  * Fire-and-forget: throws only if the request itself couldn't be sent, since
  * the no-cors response can't be read to confirm the script actually ran.
+ *
+ * `website` is the honeypot field — always empty for a real visitor. It's
+ * also checked server-side in the Apps Script, since that URL is public and
+ * a bot could POST to it directly without ever loading the site.
  */
 export function logSubmission(
   name: string,
   phone: string,
   goal: string,
+  website = "",
 ): Promise<void> {
   if (!FORM_ENDPOINT) {
     return Promise.reject(new Error("Form endpoint is not configured yet"));
@@ -201,7 +206,7 @@ export function logSubmission(
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ name, phone, goal }),
+    body: JSON.stringify({ name, phone, goal, website }),
   }).then(() => undefined);
 }
 

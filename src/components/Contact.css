@@ -187,6 +187,16 @@
   border-color: var(--pink-300);
 }
 
+/* Honeypot field — off-screen rather than display:none, since some spam
+   bots specifically skip display:none fields but still fill this in. */
+.contact__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* Visually hidden, still reachable by keyboard and screen readers. */
 .goal input {
   position: absolute;
