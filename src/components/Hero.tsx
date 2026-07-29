@@ -1,8 +1,9 @@
-import { site } from "../content/site";
+import { useLang } from "../context/LanguageContext";
 import CountUp from "./CountUp";
 import "./Hero.css";
 
 export default function Hero() {
+  const { site } = useLang();
   const h = site.hero;
 
   return (
@@ -56,8 +57,8 @@ export default function Hero() {
           <span className="photo-wash" aria-hidden="true" />
 
           <figcaption className="hero__badge">
-            <span className="hero__badge-value">Free</span>
-            <span className="hero__badge-label">first consultation</span>
+            <span className="hero__badge-value">{h.badge.value}</span>
+            <span className="hero__badge-label">{h.badge.label}</span>
           </figcaption>
         </figure>
       </div>

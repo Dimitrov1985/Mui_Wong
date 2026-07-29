@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
-import { site } from "../content/site";
+import { useLang } from "../context/LanguageContext";
 import Chevron from "./Chevron";
 import Reveal from "./Reveal";
 import "./WhyTrain.css";
 
 export default function WhyTrain() {
+  const { site } = useLang();
   const w = site.whyTrain;
   const slides = w.items;
   const count = slides.length;

@@ -1,17 +1,20 @@
-import { PRESELECT_GOAL_EVENT, site } from "../content/site";
+import { PRESELECT_GOAL_EVENT } from "../content/site";
+import { useLang } from "../context/LanguageContext";
 import CountUp from "./CountUp";
 import Reveal from "./Reveal";
 import "./Pricing.css";
 
-// Maps a plan to the matching option in the contact form's goal list, so
-// "Book this plan" arrives at the form with the right thing pre-selected.
-const GOAL_BY_PLAN_ID: Record<string, string> = {
-  online: "Online coaching",
-  "weight-loss": "Lose weight",
-  "muscle-gain": "Gain muscle",
+// Maps a plan to its matching option in site.contact.goals, by position
+// rather than by English text — the goal list is translated too, so
+// matching the literal English string would break in Thai.
+const GOAL_INDEX_BY_PLAN_ID: Record<string, number> = {
+  "weight-loss": 0, // "Lose weight"
+  "muscle-gain": 1, // "Gain muscle"
+  online: 3, // "Online coaching"
 };
 
 export default function Pricing() {
+  const { site } = useLang();
   const p = site.pricing;
 
   return (
@@ -81,7 +84,11 @@ export default function Pricing() {
                     plan.popular ? "btn--ink" : "btn--outline"
                   }`}
                   onClick={() => {
-                    const goal = GOAL_BY_PLAN_ID[plan.id];
+                    const goalIndex = GOAL_INDEX_BY_PLAN_ID[plan.id];
+                    const goal =
+                      goalIndex !== undefined
+                        ? site.contact.goals[goalIndex]
+                        : undefined;
                     if (goal) {
                       window.dispatchEvent(
                         new CustomEvent(PRESELECT_GOAL_EVENT, {

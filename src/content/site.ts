@@ -210,6 +210,10 @@ export function logSubmission(
   }).then(() => undefined);
 }
 
+/** The full shape of `site` — reused by site.th.ts so TypeScript can catch
+ * any field that's missing, extra, or differently shaped in translation. */
+export type Site = typeof site;
+
 export const site = {
   trainer: {
     name: "Mui Wong",
@@ -232,13 +236,16 @@ export const site = {
     qr: "/QR_Mui.jpg",
   },
 
-  nav: [
-    { label: "About", href: "#about" },
-    { label: "Why me", href: "#benefits" },
-    { label: "Included", href: "#included" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Contact", href: "#contact" },
-  ],
+  nav: {
+    items: [
+      { label: "About", href: "#about" },
+      { label: "Why me", href: "#benefits" },
+      { label: "Included", href: "#included" },
+      { label: "Pricing", href: "#pricing" },
+      { label: "Contact", href: "#contact" },
+    ],
+    cta: "Book now",
+  },
 
   hero: {
     eyebrow: "Personal Trainer · Bangkok",
@@ -250,6 +257,7 @@ export const site = {
     secondaryCta: "See pricing",
     photo: "/Mui.jpg",
     photoAlt: "Mui Wong training with a barbell in the gym",
+    badge: { value: "Free", label: "first consultation" },
     stats: [
       { value: "7+", label: "years experience" },
       { value: "150+", label: "clients coached" },
@@ -393,5 +401,8 @@ export const site = {
 
   footer: {
     rights: `© ${new Date().getFullYear()} Mui Wong. All rights reserved.`,
+    whatsappLabel: "Chat on WhatsApp",
+    instagramLabel: "Follow on Instagram",
+    lineLabel: "Chat on Line",
   },
 };

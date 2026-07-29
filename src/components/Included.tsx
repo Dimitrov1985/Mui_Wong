@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
-import { site, whatsAppLink } from "../content/site";
+import { whatsAppLink } from "../content/site";
+import { useLang } from "../context/LanguageContext";
 import Chevron from "./Chevron";
 import Reveal from "./Reveal";
 import "./Included.css";
 
 export default function Included() {
+  const { site } = useLang();
   const inc = site.included;
   const slides = inc.items;
   const count = slides.length;

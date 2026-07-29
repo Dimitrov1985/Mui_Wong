@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { site } from "../content/site";
+import { useLang } from "../context/LanguageContext";
+import LanguageToggle from "./LanguageToggle";
 import "./Navbar.css";
 
 function PhoneIcon() {
@@ -14,6 +15,7 @@ function PhoneIcon() {
 }
 
 export default function Navbar() {
+  const { site } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -52,7 +54,7 @@ export default function Navbar() {
           className={`nav__links${open ? " is-open" : ""}`}
           aria-label="Main navigation"
         >
-          {site.nav.map((item) => (
+          {site.nav.items.map((item) => (
             <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
               {item.label}
             </a>
@@ -65,12 +67,13 @@ export default function Navbar() {
             <PhoneIcon />
             {site.contacts.whatsappDisplay}
           </a>
+          <LanguageToggle className="nav__lang nav__lang--mobile" />
           <a
             href="#contact"
             className="btn btn--solid nav__cta nav__cta--mobile"
             onClick={() => setOpen(false)}
           >
-            Book now
+            {site.nav.cta}
           </a>
         </nav>
 
@@ -80,8 +83,10 @@ export default function Navbar() {
             <span>{site.contacts.whatsappDisplay}</span>
           </a>
 
+          <LanguageToggle />
+
           <a href="#contact" className="btn btn--solid nav__cta">
-            Book now
+            {site.nav.cta}
           </a>
         </div>
 

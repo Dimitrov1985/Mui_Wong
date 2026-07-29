@@ -1,4 +1,5 @@
-import { site, whatsAppLink } from "../content/site";
+import { whatsAppLink } from "../content/site";
+import { useLang } from "../context/LanguageContext";
 import "./Footer.css";
 
 function InstagramIcon() {
@@ -28,6 +29,7 @@ function InstagramIcon() {
 }
 
 export default function Footer() {
+  const { site } = useLang();
   const f = site.footer;
 
   return (
@@ -44,7 +46,7 @@ export default function Footer() {
             href={whatsAppLink()}
             target="_blank"
             rel="noreferrer"
-            aria-label="Chat on WhatsApp"
+            aria-label={f.whatsappLabel}
           >
             <img src="/whatsapp.png" alt="" />
           </a>
@@ -52,7 +54,7 @@ export default function Footer() {
             href={site.contacts.instagramUrl}
             target="_blank"
             rel="noreferrer"
-            aria-label="Follow on Instagram"
+            aria-label={f.instagramLabel}
           >
             <InstagramIcon />
           </a>
@@ -60,7 +62,7 @@ export default function Footer() {
             href={site.contacts.lineUrl}
             target="_blank"
             rel="noreferrer"
-            aria-label="Chat on Line"
+            aria-label={f.lineLabel}
           >
             <img src="/line.png" alt="" />
           </a>
@@ -68,7 +70,7 @@ export default function Footer() {
       </div>
 
       <nav className="shell footer__nav" aria-label="Footer navigation">
-        {site.nav.map((item) => (
+        {site.nav.items.map((item) => (
           <a key={item.href} href={item.href}>
             {item.label}
           </a>

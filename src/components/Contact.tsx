@@ -3,15 +3,16 @@ import type { FormEvent } from "react";
 import {
   PRESELECT_GOAL_EVENT,
   logSubmission,
-  site,
   whatsAppLink,
 } from "../content/site";
+import { useLang } from "../context/LanguageContext";
 import Reveal from "./Reveal";
 import "./Contact.css";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 export default function Contact() {
+  const { site } = useLang();
   const c = site.contact;
 
   const [name, setName] = useState("");

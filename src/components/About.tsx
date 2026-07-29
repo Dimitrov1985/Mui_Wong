@@ -1,8 +1,9 @@
-import { site } from "../content/site";
+import { useLang } from "../context/LanguageContext";
 import Reveal from "./Reveal";
 import "./About.css";
 
 export default function About() {
+  const { site } = useLang();
   const a = site.about;
 
   return (

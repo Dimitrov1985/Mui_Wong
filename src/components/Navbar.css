@@ -167,6 +167,12 @@
   display: none;
 }
 
+/* Shown only inside the mobile menu — the desktop toggle lives directly
+   in .nav__actions and needs no extra class. */
+.nav__lang--mobile {
+  display: none;
+}
+
 /* ---------- Burger ---------- */
 
 .nav__burger {
@@ -238,6 +244,11 @@
   .nav__phone--mobile svg {
     width: 20px;
     height: 20px;
+  }
+
+  .nav__lang--mobile {
+    display: inline-flex;
+    margin-top: var(--space-4);
   }
 
   .nav__burger {

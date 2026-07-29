@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import type { BenefitSlide } from "../content/site";
-import { site } from "../content/site";
+import { useLang } from "../context/LanguageContext";
 import Chevron from "./Chevron";
 import Reveal from "./Reveal";
 import "./Benefits.css";
@@ -37,6 +37,7 @@ function SlideArt({
 }
 
 export default function Benefits() {
+  const { site } = useLang();
   const b = site.benefits;
   const slides = b.items;
   const count = slides.length;
