@@ -14,7 +14,7 @@ const WHATSAPP_NUMBER = "66945953441";
  * Left blank until it's deployed; the WhatsApp button keeps working either way.
  */
 export const FORM_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbwQwqZdE_CfdYzSRxxs35jEuD5HV0P62z63JS7RezC_fwatqZsjFEFSJUv7_by6nzCYEA/exec";
+  "https://script.google.com/macros/s/AKfycbzP1IVa3qcL5JnXSSCxwjLPVezqjSNtxtD4jGX0R81BW4TLCeDRwS4Oun12kkf-8Gi-Vw/exec";
 
 /** One slide of the "benefits of personal training" carousel. */
 export type BenefitSlide = {
