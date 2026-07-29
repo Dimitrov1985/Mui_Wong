@@ -67,7 +67,6 @@ export default function Navbar() {
             <PhoneIcon />
             {site.contacts.whatsappDisplay}
           </a>
-          <LanguageToggle className="nav__lang nav__lang--mobile" />
           <a
             href="#contact"
             className="btn btn--solid nav__cta nav__cta--mobile"
@@ -75,6 +74,7 @@ export default function Navbar() {
           >
             {site.nav.cta}
           </a>
+          <LanguageToggle className="nav__lang nav__lang--mobile" />
         </nav>
 
         <div className="nav__actions">
@@ -83,11 +83,11 @@ export default function Navbar() {
             <span>{site.contacts.whatsappDisplay}</span>
           </a>
 
-          <LanguageToggle />
-
           <a href="#contact" className="btn btn--solid nav__cta">
             {site.nav.cta}
           </a>
+
+          <LanguageToggle />
         </div>
 
         <button
