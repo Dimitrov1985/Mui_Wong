@@ -167,10 +167,16 @@
   display: none;
 }
 
-/* Shown only inside the mobile menu — the desktop toggle lives directly
-   in .nav__actions and needs no extra class. */
-.nav__lang--mobile {
-  display: none;
+/* ---------- End group (language toggle + burger) ---------- */
+
+/* Always visible, at every width — grouping the toggle with the burger
+   keeps them pinned together on the right instead of nav__inner's
+   space-between scattering them apart once .nav__actions disappears. */
+.nav__end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
 }
 
 /* ---------- Burger ---------- */
@@ -244,17 +250,6 @@
   .nav__phone--mobile svg {
     width: 20px;
     height: 20px;
-  }
-
-  .nav__lang--mobile {
-    display: inline-flex;
-    margin-top: var(--space-4);
-  }
-
-  /* The mobile menu's own background is pink-100 too, so the toggle's
-     unchecked track needs a border to stay visible against it. */
-  .nav__lang--mobile .lang-toggle__track {
-    border: 1.5px solid var(--pink-300);
   }
 
   .nav__burger {

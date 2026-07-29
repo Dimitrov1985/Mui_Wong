@@ -74,7 +74,6 @@ export default function Navbar() {
           >
             {site.nav.cta}
           </a>
-          <LanguageToggle className="nav__lang nav__lang--mobile" />
         </nav>
 
         <div className="nav__actions">
@@ -86,21 +85,27 @@ export default function Navbar() {
           <a href="#contact" className="btn btn--solid nav__cta">
             {site.nav.cta}
           </a>
-
-          <LanguageToggle />
         </div>
 
-        <button
-          type="button"
-          className={`nav__burger${open ? " is-open" : ""}`}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        {/* Grouped together and kept outside .nav__actions and the
+            collapsible menu, so the toggle stays visible in the top bar at
+            every width — including on mobile, where it would otherwise be
+            hidden until the burger menu is opened. */}
+        <div className="nav__end">
+          <LanguageToggle className="nav__lang" />
+
+          <button
+            type="button"
+            className={`nav__burger${open ? " is-open" : ""}`}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
       </div>
     </header>
   );

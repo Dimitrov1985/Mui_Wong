@@ -26,8 +26,14 @@
   width: 60px;
   height: 28px;
   background: var(--pink-100);
+  /* A visible border by default — not just a mobile-menu fix — since this
+     toggle can end up on all sorts of backgrounds (white, pink bands, the
+     translucent scrolled navbar) and pale pink on pale pink disappears. */
+  border: 1.5px solid var(--pink-300);
   border-radius: var(--radius-pill);
-  transition: background-color var(--dur-mid) var(--ease-out);
+  transition:
+    background-color var(--dur-mid) var(--ease-out),
+    border-color var(--dur-mid) var(--ease-out);
 }
 
 .lang-toggle__label {
