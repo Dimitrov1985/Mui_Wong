@@ -354,17 +354,33 @@
 .plan__back-field input {
   width: 100%;
   padding: 0.85em 1.1em;
-  background: var(--white);
+  background: var(--pink-050);
   color: var(--ink);
   border: 2px solid transparent;
   border-radius: var(--radius-md);
   font-size: var(--text-base);
-  transition: border-color var(--dur-fast) var(--ease-out);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.plan__back-field input:hover {
+  background: var(--pink-100);
 }
 
 .plan__back-field input:focus {
   outline: none;
+  background: var(--white);
   border-color: var(--pink-500);
+}
+
+/* On the pink popular card, flip the contrast the other way. */
+.plan--popular .plan__back-field input {
+  background: var(--white);
+}
+
+.plan--popular .plan__back-field input:hover {
+  background: var(--pink-050);
 }
 
 .plan__back-error {
