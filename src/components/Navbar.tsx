@@ -68,7 +68,7 @@ export default function Navbar() {
             {site.contacts.whatsappDisplay}
           </a>
           <a
-            href="#contact"
+            href="#pricing"
             className="btn btn--solid nav__cta nav__cta--mobile"
             onClick={() => setOpen(false)}
           >
@@ -82,7 +82,7 @@ export default function Navbar() {
             <span>{site.contacts.whatsappDisplay}</span>
           </a>
 
-          <a href="#contact" className="btn btn--solid nav__cta">
+          <a href="#pricing" className="btn btn--solid nav__cta">
             {site.nav.cta}
           </a>
         </div>
