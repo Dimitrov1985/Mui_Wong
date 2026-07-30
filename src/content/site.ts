@@ -382,7 +382,7 @@ export const site = {
     phoneLabel: "Phone number",
     phonePlaceholder: "+66 __ ___ ____",
     goalLabel: "Your goal",
-    goals: ["Lose weight", "Gain muscle", "Stay in shape", "Online coaching"],
+    goals: ["Lose weight", "Gain muscle", "Stay in shape"],
     submit: "Send request",
     submitting: "Sending…",
     note: "We'll get back to you as soon as possible.",

@@ -282,7 +282,7 @@
 
   .nav__links > a {
     font-family: var(--font-display);
-    font-size: var(--display-sm);
+    font-size: var(--text-xl);
     font-weight: 700;
     text-transform: uppercase;
   }
