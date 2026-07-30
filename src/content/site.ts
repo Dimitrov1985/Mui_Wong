@@ -176,14 +176,6 @@ export function whatsAppLink(message?: string): string {
 }
 
 /**
- * Event the pricing cards fire (with the matching goal string as `detail`)
- * so the contact form can preselect it. A "request" with no name or phone
- * isn't a usable lead, so pricing clicks hand off to the real form instead
- * of logging anything themselves.
- */
-export const PRESELECT_GOAL_EVENT = "mw:preselect-goal";
-
-/**
  * Logs a lead to the Google Sheet / Gmail backend (see google-apps-script.gs).
  * Fire-and-forget: throws only if the request itself couldn't be sent, since
  * the no-cors response can't be read to confirm the script actually ran.

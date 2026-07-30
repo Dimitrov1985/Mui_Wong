@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { FormEvent } from "react";
-import {
-  PRESELECT_GOAL_EVENT,
-  logSubmission,
-  whatsAppLink,
-} from "../content/site";
+import { logSubmission, whatsAppLink } from "../content/site";
 import { useLang } from "../context/LanguageContext";
 import Reveal from "./Reveal";
 import "./Contact.css";
@@ -22,22 +18,6 @@ export default function Contact() {
   // Honeypot: invisible to real visitors, but generic form-filling bots
   // often fill every field they can find. Never read or shown to anyone.
   const [website, setWebsite] = useState("");
-
-  // A "Book this plan" click on the pricing cards lands here with its goal
-  // pre-selected — bring the form back if a previous submission's success
-  // screen is still showing, so there's something to fill in.
-  useEffect(() => {
-    function onPreselect(event: Event) {
-      const preselected = (event as CustomEvent<string>).detail;
-      if (preselected) {
-        setGoal(preselected);
-        setStatus("idle");
-      }
-    }
-
-    window.addEventListener(PRESELECT_GOAL_EVENT, onPreselect);
-    return () => window.removeEventListener(PRESELECT_GOAL_EVENT, onPreselect);
-  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

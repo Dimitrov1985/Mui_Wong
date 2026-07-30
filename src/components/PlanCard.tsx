@@ -12,12 +12,14 @@ export default function PlanCard({
   plan,
   index,
   isFlipped,
+  isDimmed,
   onFlip,
   onFlipBack,
 }: {
   plan: Plan;
   index: number;
   isFlipped: boolean;
+  isDimmed: boolean;
   onFlip: () => void;
   onFlipBack: () => void;
 }) {
@@ -72,6 +74,10 @@ export default function PlanCard({
     <div
       className={`plan__flip${isFlipped ? " is-flipped" : ""}`}
       data-plan-id={plan.id}
+      // Native inert: while another card is open, this one is untabbable
+      // and invisible to assistive tech too, matching its pointer-events:
+      // none dimmed state instead of leaving its button reachable by Tab.
+      inert={isDimmed}
     >
       <div className="plan__flip-inner">
         {/* ---------- Front: the plan itself ---------- */}

@@ -42,23 +42,27 @@ export default function Pricing() {
         </Reveal>
 
         <div className="pricing__grid">
-          {p.plans.map((plan, i) => (
-            <Reveal
-              key={plan.id}
-              className={`plan${plan.popular ? " plan--popular" : ""}${
-                flippedId && flippedId !== plan.id ? " plan--dimmed" : ""
-              }`}
-              delay={i * 90}
-            >
-              <PlanCard
-                plan={plan}
-                index={i}
-                isFlipped={flippedId === plan.id}
-                onFlip={() => setFlippedId(plan.id)}
-                onFlipBack={() => setFlippedId(null)}
-              />
-            </Reveal>
-          ))}
+          {p.plans.map((plan, i) => {
+            const isDimmed = flippedId !== null && flippedId !== plan.id;
+            return (
+              <Reveal
+                key={plan.id}
+                className={`plan${plan.popular ? " plan--popular" : ""}${
+                  isDimmed ? " plan--dimmed" : ""
+                }`}
+                delay={i * 90}
+              >
+                <PlanCard
+                  plan={plan}
+                  index={i}
+                  isFlipped={flippedId === plan.id}
+                  isDimmed={isDimmed}
+                  onFlip={() => setFlippedId(plan.id)}
+                  onFlipBack={() => setFlippedId(null)}
+                />
+              </Reveal>
+            );
+          })}
         </div>
 
         <Reveal
