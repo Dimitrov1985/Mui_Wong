@@ -210,7 +210,7 @@ export const site = {
   trainer: {
     name: "Mui Wong",
     role: "Personal Trainer",
-    location: "Bangkok, Thailand",
+    location: "Chiang Mai, Thailand",
     /** Emblem cropped from the real brand mark — see Navbar.css. */
     logo: "/logo-mark.png",
   },
@@ -240,7 +240,7 @@ export const site = {
   },
 
   hero: {
-    eyebrow: "Personal Trainer · Bangkok",
+    eyebrow: "Personal Trainer · Chiang Mai",
     line1: "Personal",
     line2: "Training",
     script: "that actually sticks",

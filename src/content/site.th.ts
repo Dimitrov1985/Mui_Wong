@@ -13,7 +13,7 @@ export const site: Site = {
   trainer: {
     name: "Mui Wong",
     role: "เทรนเนอร์ส่วนตัว",
-    location: "กรุงเทพฯ ประเทศไทย",
+    location: "เชียงใหม่ ประเทศไทย",
     logo: "/logo-mark.png",
   },
 
@@ -40,7 +40,7 @@ export const site: Site = {
   },
 
   hero: {
-    eyebrow: "เทรนเนอร์ส่วนตัว · กรุงเทพฯ",
+    eyebrow: "เทรนเนอร์ส่วนตัว · เชียงใหม่",
     line1: "เทรนส่วนตัว",
     line2: "ที่ได้ผลจริง",
     script: "แบบยั่งยืน",
