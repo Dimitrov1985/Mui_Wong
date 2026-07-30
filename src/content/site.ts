@@ -318,6 +318,8 @@ export const site = {
     lede: "Buy sessions one at a time, or save with a package. Every option starts with a free consultation.",
     popularLabel: "Most popular",
     cta: "Book this plan",
+    formBack: "Back",
+    formDone: "Done",
     footnote:
       "Prices are per package and sessions don't expire. Not sure which fits? Message me and we'll work it out together — the first conversation costs nothing.",
     plans: [

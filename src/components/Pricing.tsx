@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { useLang } from "../context/LanguageContext";
-import CountUp from "./CountUp";
+import PlanCard from "./PlanCard";
 import Reveal from "./Reveal";
 import "./Pricing.css";
 
@@ -7,12 +8,32 @@ export default function Pricing() {
   const { site } = useLang();
   const p = site.pricing;
 
+  // Only one plan can be flipped open at a time — flipping another closes
+  // whichever was open, same as the rest of the section dimming.
+  const [flippedId, setFlippedId] = useState<string | null>(null);
+
+  // A click anywhere outside the open card — dimmed siblings, the heading,
+  // blank space — flips it back, same as its own Back/close button.
+  useEffect(() => {
+    if (!flippedId) return;
+
+    function onDocClick(event: MouseEvent) {
+      const target = event.target as Element;
+      if (!target.closest(`.plan__flip[data-plan-id="${flippedId}"]`)) {
+        setFlippedId(null);
+      }
+    }
+
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, [flippedId]);
+
   return (
     <section className="section pricing" id="pricing">
       <span className="blob pricing__blob" aria-hidden="true" />
 
       <div className="shell">
-        <Reveal className="pricing__head">
+        <Reveal className={`pricing__head${flippedId ? " is-dimmed" : ""}`}>
           <p className="eyebrow">{p.eyebrow}</p>
           <h2 className="display display--md">
             {p.title} <span className="script">{p.titleScript}</span>
@@ -24,65 +45,26 @@ export default function Pricing() {
           {p.plans.map((plan, i) => (
             <Reveal
               key={plan.id}
-              className={`plan${plan.popular ? " plan--popular" : ""}`}
+              className={`plan${plan.popular ? " plan--popular" : ""}${
+                flippedId && flippedId !== plan.id ? " plan--dimmed" : ""
+              }`}
               delay={i * 90}
             >
-              <article className="plan__card">
-                {plan.popular && (
-                  <span className="plan__flag">{p.popularLabel}</span>
-                )}
-
-                <p className="plan__tagline">{plan.tagline}</p>
-                <h3 className="plan__name">{plan.name}</h3>
-
-                <p className="plan__price">
-                  <span className="plan__amount">
-                    <CountUp value={plan.price} />
-                  </span>
-                  <span className="plan__period">{plan.period}</span>
-                </p>
-
-                <p className="plan__summary">{plan.summary}</p>
-
-                <ul className="plan__features">
-                  {plan.features.map((feature) => (
-                    <li key={feature}>
-                      <svg
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <path
-                          d="M3 8.4l3.2 3.2L13 4.8"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Packages differ by quantity, not by fitness goal, so
-                    there's nothing sensible to pre-select in the contact
-                    form — just scroll there and let the visitor pick. */}
-                <a
-                  href="#contact"
-                  className={`btn plan__cta ${
-                    plan.popular ? "btn--ink" : "btn--outline"
-                  }`}
-                >
-                  {p.cta}
-                </a>
-              </article>
+              <PlanCard
+                plan={plan}
+                index={i}
+                isFlipped={flippedId === plan.id}
+                onFlip={() => setFlippedId(plan.id)}
+                onFlipBack={() => setFlippedId(null)}
+              />
             </Reveal>
           ))}
         </div>
 
-        <Reveal delay={120}>
+        <Reveal
+          delay={120}
+          className={`pricing__footnote-wrap${flippedId ? " is-dimmed" : ""}`}
+        >
           <p className="pricing__footnote">{p.footnote}</p>
         </Reveal>
       </div>
